@@ -10,13 +10,13 @@ class MyHandler(FileSystemEventHandler):
             i = 0
             print(filename)
             if filename != 'newDesktop':
-                new_name = filename # f1.jpg and f2.jpg
-                extension = 'noname' # noname
-                # print(new_name,extension)
+                new_name = filename 
+                extension = 'noname'
+           
                 try:
                     extension = str(os.path.splitext(folder_to_track + '/' + filename)[1]) # .jpg
-                    path = extensions_folders[extension] # C:/Users/ingle/OneDrive/Desktop/Destination/Media/Images path of newDesktop where file is to be sent
-                    # print(extension,path)
+                    path = extensions_folders[extension] 
+        
                 except Exception:
                     extension = 'noname'
                 dir_present = extensions_folders[extension].split("/")
@@ -25,15 +25,15 @@ class MyHandler(FileSystemEventHandler):
                     if not os.path.exists(extensions_folders[extension]):
                         os.makedirs(extensions_folders[extension])
                         main += "/" + dir_present[6+i]
-                now = datetime.now() # date + time
-                year = now.strftime("%Y") # year in 200x format
-                month = now.strftime("%m") # month in 01 to 12
-                # print(now,year,month)
-                folder_destination_path = extensions_folders[extension] # C:/Users/ingle/OneDrive/Desktop/Destination/Media/Images
+                now = datetime.now() 
+                year = now.strftime("%Y") 
+                month = now.strftime("%m") 
+              
+                folder_destination_path = extensions_folders[extension] 
 
                 year_exists = False
                 month_exists = False
-                for folder_name in os.listdir(extensions_folders[extension]): # returns directories in newDesktop of extension type and check for year and month
+                for folder_name in os.listdir(extensions_folders[extension]):
                     if folder_name == year:
                         folder_destination_path = extensions_folders[extension] + "/" + year
                         year_exists = True
@@ -41,20 +41,18 @@ class MyHandler(FileSystemEventHandler):
                             if month == folder_month:
                                 folder_destination_path = extensions_folders[extension] + "/" + year + "/" + month
                                 month_exists = True
-                if not year_exists: # if folders of year nd month are not present than it will create months and years folders
+                if not year_exists:
                     os.mkdir(extensions_folders[extension] + "/" + year)
                     folder_destination_path = extensions_folders[extension] + "/" + year
-                    # print("Made folder",year)
+              
                 if not month_exists:
                     os.mkdir(folder_destination_path + "/" + month)
                     folder_destination_path = folder_destination_path + "/" + month
                     # print("Made folder",month)
-                file_exists = os.path.isfile(folder_destination_path + "/" + new_name) # false if files are not present in newDesktop
+                file_exists = os.path.isfile(folder_destination_path + "/" + new_name) 
                 # print(new_name,file_exists) 
                 while file_exists:
                     i += 1
-                    # splitext splits the path into filename + extension of it
-                    # splitext[0] = path + filename and splitext[1] = extension of file
                     new_name = os.path.splitext(folder_to_track + '/' + filename)[0] + ("("+str(i)+")") + os.path.splitext(folder_to_track + '/' + filename)[1]
                     new_name = new_name.split("/")[4]
                     file_exists = os.path.isfile(folder_destination_path + "/" + new_name)
@@ -62,7 +60,7 @@ class MyHandler(FileSystemEventHandler):
                 src = folder_to_track + "/" + filename
                 new_name = folder_destination_path + "/" + new_name
                 print(src,new_name)
-                # os.rename(src, new_name)
+                os.rename(src, new_name)
 extensions_folders = {
 # noname or other type of files
     'noname': "C:/Users/ingle/OneDrive/Desktop/Destination/Other",

@@ -33,7 +33,7 @@ def plot():
             sizes.append(percentage)
 #         print(labels,sizes)
         fig = go.Figure(data=[go.Pie(labels=labels, values=sizes)])
-        fig.add_trace(go.Scatter(x=[None], y=[None], mode='markers',marker=dict(size=0, color='rgba(0,0,0,0)'),showlegend=True,text=['%s, %1.1f%%' % (l, s) for l, s in zip(labels, sizes)],hoverinfo='text'))
+        fig.add_trace(go.Scatter(x=[None], y=[None],showlegend=True,text=['%s, %1.1f%%' % (l, s) for l, s in zip(labels, sizes)],hoverinfo='text'))
         fig.update_layout(legend=dict(x=1.1, y=1))
         fig.show()
     directory = askdirectory(title="Select a folder")
